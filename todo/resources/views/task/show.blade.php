@@ -1,9 +1,8 @@
 @extends('layouts.app')
-@section('title', 'Tasks')
+@section('title', 'Task')
 @section('content')
-    <h1>Task List</h1>
-    <div class="row">
-        @forelse($tasks as $task)
+    <h1>Task </h1>
+    <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card mb-4">
                     <div class="card-header">
@@ -18,15 +17,13 @@
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <div class="d-flex justify-content-end">
-                            <a href="{{route('task.show', $task->id)}}" class="btn btn-sm btn-outline-primary">View</a>
+                        <div class="d-flex justify-content-between">
+                            <a href="#" class="btn btn-sm btn-outline-success">Edit</a>
+                            <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
                         </div>
                     </div>
                 </div>
             </div>
-        @empty
-            <div class="alert alert-danger">There are no tasks to display!</div>
-        @endforelse
     </div>
 
 @endsection
