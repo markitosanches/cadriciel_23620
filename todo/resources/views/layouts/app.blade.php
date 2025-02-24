@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column h-100">
 <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
             <div class="container-fluid">
@@ -28,7 +28,7 @@
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">Tasks</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">New Task</a></li>
+                                <li><a class="dropdown-item" href="{{route('task.create')}}">New Task</a></li>
                                 <li><a class="dropdown-item" href="#">Completed</a></li>
                                 <li><a class="dropdown-item" href="#">Unfinished</a></li>
                             </ul>
@@ -51,7 +51,14 @@
             </div>
         </nav>
     </header>
-    <main class="container flex-grow-1 m-4">
+    <main class="container p-4">
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{session('success')}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
         @yield('content')
     </main>
     <footer class="footer mt-auto py-3 bg-dark text-white">

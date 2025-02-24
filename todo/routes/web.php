@@ -20,4 +20,7 @@ Route::get('/', function () {
 
 Route::get('/tasks', [TaskController::class, 'index'])->name('task.index');
 Route::get('/task/{task}', [TaskController::class, 'show'])->name('task.show');
+Route::get('/create/task', [TaskController::class, 'create'])->name('task.create');
+Route::post('/create/task', [TaskController::class, 'store'])->name('task.store');
+Route::get('/edit/task/{task}', [TaskController::class, 'edit'])->name('task.edit');
 

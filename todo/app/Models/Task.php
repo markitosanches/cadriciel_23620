@@ -11,6 +11,14 @@ class Task extends Model
 
     //protected $table = "task";
     //protected $primaryKey = "taskId";
-    //protected $timestamps = false;
+    //protected $timestamp = false;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'completed',
+        'due_date',
+        'user_id' 
+    ];
 
 }
