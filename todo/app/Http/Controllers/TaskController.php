@@ -36,7 +36,7 @@ class TaskController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:191',
-            'description' => 'required|string',
+            'description' => 'min:10|string',
             'completed' => 'nullable|boolean',
             'due_date' => 'nullable|date',
         ]);
@@ -70,9 +70,9 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        return ($task);
+        //return ($task);
 
-        return view('task.edit');
+        return view('task.edit', ['task' => $task]);
     }
 
     /**
@@ -80,7 +80,22 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:191',
+            'description' => 'min:10|string',
+            'completed' => 'nullable|boolean',
+            'due_date' => 'nullable|date',
+        ]);
+
+        $task->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'completed' => $request->input('completed', false),
+            'due_date' => $request->due_date,
+        ]);
+        
+        return redirect()->route('task.show', $task->id)->withSuccess('Task updated!');
+    
     }
 
     /**
@@ -88,6 +103,75 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $id = $task->id;
+        $task->delete();
+
+        return redirect()->route('task.index')->withSuccess('Task number '.$id.' deleted!');
+    }
+
+    public function query(){
+        //SELECT * FROM tasks
+        //$task = Task::all();
+        //$task = Task::select()->get();
+       //$task = Task::select('title', 'description')->get();
+
+        //SELECT * FROM tasks LIMIT 1;
+        //$task = Task::select()->first();
+
+//ORDER BY        
+        //SELECT * FROM tasks ORDER BY title DESC;
+        $task = Task::select()->orderby('title', 'desc')->get();
+        $task = Task::orderby('title', 'desc')->get();
+
+//WHERE  
+        //SELECT * FROM tasks WHERE user_id = 1;
+        //$task = Task::select()->where('user_id','=' ,1)->get();
+        //$task = Task::where('user_id','=' ,1)->get();
+        //SELECT * FROM tasks WHERE title like "Task %";
+        $task = Task::where('title','like', 'T__k %')->orderby('title', 'desc')->get();
+
+        //select * from tasks where id = 1; (PK)
+        //  $task = Task::where('id', 1)->get();
+        //  $task = $task[0];
+        //  $task = Task::where('id', 1)->first();
+        $task = Task::find(1);
+
+//AND
+        //select * from tasks where user_id = 1 AND title LIKE 'T%';
+        $task = Task::select()
+                ->where('user_id', 1)
+                ->where('title', 'like', 't%')
+                ->get();
+
+//OR
+        //SELECT * FROM tasks WHERE user_id = 1 OR user_id = 3;
+        //SELECT * FROM tasks WHERE user_id IN (1, 3);
+        $task = Task::select()
+        ->where('user_id', 1)
+        ->orWhere('user_id', 3)
+        ->get();
+
+//INNER JOIN
+        //SELECT * FROM tasks INNER JOIN users ON user_id = users.id
+        $task = Task::select()
+        ->join('users', 'users.id', 'user_id')
+        //->where('user_id', '>', 5)
+        //->orderby('name')
+        ->get();
+
+//OUTER JOIN
+        //SELECT * FROM tasks RIGHT OUTER JOIN users ON user_id = users.id
+        $task = Task::select()
+        ->rightJoin('users', 'users.id', 'user_id')
+        ->get();
+
+//Agregats fonction
+        // $task = Task::max('id');
+        // $task = Task::sum('completed');
+
+        $task = Task::select()->where('user_id','=' ,1)->count();
+
+
+        return $task;
     }
 }
