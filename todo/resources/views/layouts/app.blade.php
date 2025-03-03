@@ -22,15 +22,15 @@
                             <a class="nav-link active" aria-current="page" href="{{route('task.index')}}">Tasks</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">User</a>
+                            <a class="nav-link" href="{{route('user.index')}}">Users</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">Tasks</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{{route('task.create')}}">New Task</a></li>
-                                <li><a class="dropdown-item" href="#">Completed</a></li>
-                                <li><a class="dropdown-item" href="#">Unfinished</a></li>
+                                <li><a class="dropdown-item" href="{{route('task.completed', 1)}}">Completed</a></li>
+                                <li><a class="dropdown-item" href="{{route('task.completed', 0)}}">Unfinished</a></li>
                             </ul>
                         </li>
                     </ul>

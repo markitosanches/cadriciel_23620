@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class TaskController extends Controller
 {
@@ -109,6 +111,11 @@ class TaskController extends Controller
         return redirect()->route('task.index')->withSuccess('Task number '.$id.' deleted!');
     }
 
+    public function completed($completed){
+       $tasks = Task::where('completed', $completed)->get();
+       return view('task.index', ['tasks' => $tasks]);
+    }
+
     public function query(){
         //SELECT * FROM tasks
         //$task = Task::all();
@@ -172,6 +179,15 @@ class TaskController extends Controller
         $task = Task::select()->where('user_id','=' ,1)->count();
 
 
-        return $task;
+//group by requete brute
+        $task = Task::select(DB::raw('count(*) as count_tasks'), 'user_id')
+        ->groupBy('user_id')
+        ->get();
+
+// belongsTo 
+
+        $task = Task::find(1);
+
+        return $task->user;
     }
 }

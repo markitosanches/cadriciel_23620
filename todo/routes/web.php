@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,5 +27,8 @@ Route::get('/edit/task/{task}', [TaskController::class, 'edit'])->name('task.edi
 Route::put('/edit/task/{task}', [TaskController::class, 'update'])->name('task.update');
 Route::delete('/task/{task}', [TaskController::class, 'destroy'])->name('task.delete');
 
+Route::get('/completed/task/{completed}', [TaskController::class, 'completed'])->name('task.completed');
+
 Route::get('/query', [TaskController::class, 'query'])->name('task.query');
 
+Route::get('/users', [UserController::class, 'index'])->name('user.index');
