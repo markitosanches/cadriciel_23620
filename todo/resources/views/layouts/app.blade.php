@@ -21,6 +21,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{route('task.index')}}">Tasks</a>
                         </li>
+                        @auth
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('user.index')}}">Users</a>
                         </li>
@@ -33,6 +34,7 @@
                                 <li><a class="dropdown-item" href="{{route('task.completed', 0)}}">Unfinished</a></li>
                             </ul>
                         </li>
+                        @endauth
                     </ul>
                     <ul class="navbar-nav  mb-2 mb-sm-0">
                         <li class="nav-item dropdown">
@@ -44,7 +46,11 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
+                            @guest
+                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                            @else
+                            <a class="nav-link" href="{{ route('logout') }}">Logout</a>
+                            @endguest
                         </li>
                     </ul>
                 </div>
@@ -52,6 +58,11 @@
         </nav>
     </header>
     <main class="container p-4">
+        @auth
+            <p>Welcome {{ Auth::user()->name }},</p>
+        @else
+            <p>Please log in to continue!</p>
+        @endauth
         @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{session('success')}}
