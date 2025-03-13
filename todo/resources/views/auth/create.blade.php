@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Login')
+@section('title', trans('Login'))
 @section('content')
-<h1>Login</h1>
+<h1>@lang('Login')</h1>
 <div class="row justify-content-center">
     <div class="col-md-6">
         @if(!$errors->isEmpty())
@@ -16,20 +16,20 @@
         @endif
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">Login</h5>
+                <h5 class="card-title">@lang('Login')</h5>
             </div>
             <div class="card-body">
                 <form method="post">
                     @csrf
                     <div class="mb-3">
-                        <label for="email" class="form-label">Username</label>
+                        <label for="email" class="form-label">@lang('Username')</label>
                         <input type="email" id="email" name="email" class="form-control" value="{{ old('email')}}">
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">@lang('Password')</label>
                         <input type="password" id="password" name="password" class="form-control">
                     </div>
-                    <input type="submit" value="Login" class="btn btn-primary">
+                    <input type="submit" value="@lang('Login')" class="btn btn-primary">
                 </form>
             </div>
         </div>
