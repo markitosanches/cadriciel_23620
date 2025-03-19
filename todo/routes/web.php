@@ -5,6 +5,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SetLocaleController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/completed/task/{completed}', [TaskController::class, 'completed'])->name('task.completed');
 
+    Route::get('/create/category', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/create/category', [CategoryController::class, 'store'])->name('category.store');
     
 });
 
