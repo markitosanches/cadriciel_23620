@@ -47,6 +47,21 @@
                             </div>
                         @endif
                     </div>
+                    <div class="mb-3">
+                        <label for="category_id" class="form-label">Category</label>
+                        <select name="category_id" id="category_id" class="form-select">
+                            <option value="">Select the category</option>
+                            @foreach($categories as $category)
+                            <option value="{{ $category['id'] }}" @if ($category['id'] == old('category_id')) selected @endif>{{ $category['category'] }}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('category_id'))
+                            <div class="text-danger mt-2">
+                                {{ $errors->first('category_id') }}
+                            </div>
+                        @endif
+                    </div>
+
                     <input type="submit" value="Save" class="btn btn-primary">
                 </form>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +32,10 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('task.create');
+        $categories = Category::categories();
+
+       // return view('task.create', ['categories' => $categories]);
+        return view('task.create', compact('categories'));
     }
 
     /**
@@ -44,7 +48,10 @@ class TaskController extends Controller
             'description' => 'min:10|string',
             'completed' => 'nullable|boolean',
             'due_date' => 'nullable|date',
-        ]);
+            'category_id' => 'required|exists:categories,id'
+        ],
+        ['category_id'=> 'my message'], //message custom
+        ['category_id'=> 'category']);
         //return redirect()->back()->withErrors()->withIpunts();
 
         $task = Task::create([
@@ -53,6 +60,7 @@ class TaskController extends Controller
             'completed' => $request->input('completed', false),
             'due_date' => $request->due_date,
             'user_id' => Auth::user()->id,
+            'category_id' => $request->category_id
         ]);
 
         return redirect()->route('task.show', $task->id)->with('success', 'Task created successfully!');
