@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Dompdf\Dompdf;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 class TaskController extends Controller
@@ -125,6 +127,17 @@ class TaskController extends Controller
     public function completed($completed){
        $tasks = Task::where('completed', $completed)->get();
        return view('task.index', ['tasks' => $tasks]);
+    }
+
+
+    public function pdf(Task $task)
+    {
+     $qrCode = QrCode::size(200)->generate(route('task.show', $task->id));
+     $pdf = new Dompdf();
+     $pdf->setPaper('letter', 'portrait');
+     $pdf->loadHtml(view('task.show-pdf', ['task' => $task, 'qrCode' => $qrCode]));
+     $pdf->render();
+     return $pdf->stream('task_'.$task->id.'.pdf');
     }
 
     public function query(){

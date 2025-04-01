@@ -20,6 +20,7 @@
                     <div class="card-footer">
                         <div class="d-flex justify-content-between">
                             <a href="{{route('task.edit', $task->id)}}" class="btn btn-sm btn-outline-success">Edit</a>
+                            <a href="{{route('task.pdf', $task->id)}}" class="btn btn-sm btn-outline-warning">PDF</a>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Delete

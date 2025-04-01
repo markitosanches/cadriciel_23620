@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('title', trans('Login'))
+@section('title', 'Reset password')
 @section('content')
-<h1>@lang('Login')</h1>
+<h1>Reset password</h1>
 <div class="row justify-content-center">
     <div class="col-md-6">
         @if(!$errors->isEmpty())
@@ -16,22 +16,22 @@
         @endif
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">@lang('Login')</h5>
+                <h5 class="card-title">Reset password</h5>
             </div>
             <div class="card-body">
                 <form method="post">
                     @csrf
-                    <div class="mb-3">
-                        <label for="email" class="form-label">@lang('Username')</label>
-                        <input type="email" id="email" name="email" class="form-control" value="{{ old('email')}}">
-                    </div>
+                    @method('put')
                     <div class="mb-3">
                         <label for="password" class="form-label">@lang('Password')</label>
                         <input type="password" id="password" name="password" class="form-control">
                     </div>
-                    <input type="submit" value="@lang('Login')" class="btn btn-primary mb-2">
+                    <div class="mb-3">
+                        <label for="c_password" class="form-label">Confirm @lang('Password')</label>
+                        <input type="password" id="c_password" name="password_confirmation" class="form-control">
+                    </div>
+                    <input type="submit" value="Reset password" class="btn btn-primary">
                 </form>
-                <a href="{{route('user.forgot')}}">Forgot Password</a>
             </div>
         </div>
     </div>

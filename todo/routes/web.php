@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/create/category', [CategoryController::class, 'create'])->name('category.create');
     Route::post('/create/category', [CategoryController::class, 'store'])->name('category.store');
     
+    Route::get('/task-pdf/{task}', [TaskController::class, 'pdf'])->name('task.pdf');
 });
 
 Route::get('/query', [TaskController::class, 'query'])->name('task.query')->middleware('auth');
@@ -45,6 +46,11 @@ Route::get('/query', [TaskController::class, 'query'])->name('task.query')->midd
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
 Route::get('/registration', [UserController::class, 'create'])->name('user.create');
 Route::post('/registration', [UserController::class, 'store'])->name('user.store');
+Route::get('/password/forgot', [UserController::class, 'forgot'])->name('user.forgot');
+Route::post('/password/forgot', [UserController::class, 'email'])->name('user.email');
+Route::get('/password/reset/{user}/{token}}', [UserController::class, 'reset'])->name('user.reset');
+Route::put('/password/reset/{user}/{token}}', [UserController::class, 'resetUpdate'])->name('user.reset.update');
+
 
 Route::get('/login', [AuthController::class, 'create'])->name('login');
 Route::post('/login', [AuthController::class, 'store'])->name('login.store');
