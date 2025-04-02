@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/completed/task/{completed}', [TaskController::class, 'completed'])->name('task.completed');
 
-    Route::get('/create/category', [CategoryController::class, 'create'])->name('category.create');
+    Route::get('/create/category', [CategoryController::class, 'create'])->name('category.create')->middleware('can:create-category');
     Route::post('/create/category', [CategoryController::class, 'store'])->name('category.store');
     
     Route::get('/task-pdf/{task}', [TaskController::class, 'pdf'])->name('task.pdf');
@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/query', [TaskController::class, 'query'])->name('task.query')->middleware('auth');
 
 
-Route::get('/users', [UserController::class, 'index'])->name('user.index');
+Route::get('/users', [UserController::class, 'index'])->name('user.index')->middleware('auth');
 Route::get('/registration', [UserController::class, 'create'])->name('user.create');
 Route::post('/registration', [UserController::class, 'store'])->name('user.store');
 Route::get('/password/forgot', [UserController::class, 'forgot'])->name('user.forgot');

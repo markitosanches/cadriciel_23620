@@ -23,9 +23,11 @@
                             <a class="nav-link active" aria-current="page" href="{{route('task.index')}}">@lang('Tasks')</a>
                         </li>
                         @auth
+                        @role('Admin')
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('user.index')}}">@lang('Users')</a>
                         </li>
+                        @endrole
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">@lang('Tasks')</a>
@@ -35,6 +37,11 @@
                                 <li><a class="dropdown-item" href="{{route('task.completed', 0)}}">@lang('Unfinished')</a></li>
                             </ul>
                         </li>
+                        @can('create-category')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('category.create')}}">@lang('Category')</a>
+                        </li>
+                        @endcan
                         @endauth
                     </ul>
                     <ul class="navbar-nav  mb-2 mb-sm-0">

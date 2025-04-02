@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -19,6 +20,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        if (!Auth::user()->hasRole('Admin')) {
+            abort(403, 'Unauthorized action.');
+        }
         $users = User::Select('id', 'name', 'email')
                 ->OrderBy('name')
                 ->with('tasks')

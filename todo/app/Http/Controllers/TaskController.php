@@ -118,6 +118,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        $this->authorize('delete-task');
+        //Auth::user()->can('delete-task');
         $id = $task->id;
         $task->delete();
 
